@@ -5,6 +5,8 @@
 #include "patches.h"
 #include "ntstatus.h"
 
+// Not needed for UP+Angel, fixed in source - Kizoky
+/*
 void(__thiscall* oUpdateAreaBits)(void* this_, void* pl, void* a);
 
 void __fastcall UpdateAreaBits_not_reckless(void* this_, void* edx, void* player, void* areabits) {
@@ -14,6 +16,7 @@ void __fastcall UpdateAreaBits_not_reckless(void* this_, void* edx, void* player
 	}
 	return oUpdateAreaBits(this_, player, areabits);
 }
+*/
 
 std::map<std::string, std::set<uintptr_t>> hooked_functions;
 
@@ -35,21 +38,23 @@ mempatch_table_t patches = {
 				{ "81 EC ? ? ? ? 53 8B 9C 24 ? ? ? ? 56 57 BF", {0xC2,0x04,0x00} }, // ret 4
 				{ "83 EC ? 53 55 56 57 8B F9", {0xC3} } // ret
 			}
-	},
+	}/*,
 	{
 		"server.dll",
 			{
 				{"80 78 ? ? 75 ? 68 ? ? ? ? E8", {0x90,0x90,0x90,0x90,0x90,0x90} }, // gamerules
 			}
-	}
+	}*/
 };
 
 detour_table_t detours = {
 	{
+		/*
 		"server.dll",
 		{
 			{0x1D9DB0 , &UpdateAreaBits_not_reckless, (void**)&oUpdateAreaBits}
 		}
+		*/
 	}
 };
 
